@@ -128,6 +128,38 @@ describe('<Dropdown.Menu>', () => {
       requestClose.getCall(0).args.length.should.equal(0);
     });
 
+    it('do not re mount component on menu open/close', () => {
+      const mount = sinon.spy();
+
+      class Component extends React.Component {
+        componentDidMount() {
+          mount();
+        }
+
+        render() {
+          return (<span>test</span>);
+        }
+      }
+
+      ReactDOM.render(
+        <div>
+          <DropdownMenu>
+            <MenuItem><Component /></MenuItem>
+          </DropdownMenu>
+        </div>
+      , focusableContainer);
+
+      ReactDOM.render(
+        <div>
+          <DropdownMenu open>
+            <MenuItem><Component /></MenuItem>
+          </DropdownMenu>
+        </div>
+      , focusableContainer);
+
+      mount.should.have.been.calledOnce;
+    });
+
     describe('Keyboard Navigation', () => {
       it('sets focus on next menu item when the key "down" is pressed', () => {
         const instance = ReactDOM.render(simpleMenu, focusableContainer);

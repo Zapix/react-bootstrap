@@ -89,11 +89,11 @@ class DropdownMenu extends React.Component {
     const {
       open,
       pullRight,
-      onClose,
       labelledBy,
       onSelect,
       className,
       children,
+      onClose,
       ...props,
     } = this.props;
 
@@ -122,15 +122,12 @@ class DropdownMenu extends React.Component {
       </ul>
     );
 
-    if (open) {
-      return (
-        <RootCloseWrapper noWrap onRootClose={onClose}>
-          {list}
-        </RootCloseWrapper>
-      );
-    }
+    return (
+      <RootCloseWrapper noWrap onRootClose={onClose}>
+        {list}
+      </RootCloseWrapper>
+    );
 
-    return list;
   }
 }
 
