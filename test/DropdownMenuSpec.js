@@ -128,6 +128,25 @@ describe('<Dropdown.Menu>', () => {
       requestClose.getCall(0).args.length.should.equal(0);
     });
 
+    it('Do not call onClose if menu close', () => {
+      const requestClose = sinon.stub();
+
+      const instance = ReactDOM.render(
+        <div>
+          <button>click me</button>
+          <DropdownMenu className="test-menu" onClose={requestClose}>
+            <MenuItem>Item</MenuItem>
+          </DropdownMenu>
+        </div>
+        , focusableContainer);
+
+      const button = getOne(instance.getElementsByTagName('button'));
+      button.click();
+
+      requestClose.should.not.have.been.called;
+    });
+
+
     it('do not re mount component on menu open/close', () => {
       const mount = sinon.spy();
 
@@ -187,7 +206,6 @@ describe('<Dropdown.Menu>', () => {
 
       expect(hideMenuCount).to.equals(0);
     });
-
 
     describe('Keyboard Navigation', () => {
       it('sets focus on next menu item when the key "down" is pressed', () => {
