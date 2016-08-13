@@ -160,6 +160,35 @@ describe('<Dropdown.Menu>', () => {
       mount.should.have.been.calledOnce;
     });
 
+    it('Use hide class if menu close', () => {
+      const instance = ReactDOM.render(
+        <div>
+          <DropdownMenu className="test-menu">
+            <MenuItem>Item</MenuItem>
+          </DropdownMenu>
+        </div>
+      , focusableContainer);
+
+      const hideMenuCount = instance.querySelectorAll('.test-menu.hide').length;
+
+      expect(hideMenuCount).to.equals(1);
+    });
+
+    it('Do not use hide class if menu open', () => {
+      const instance = ReactDOM.render(
+        <div>
+          <DropdownMenu className="test-menu" open>
+            <MenuItem>Item</MenuItem>
+          </DropdownMenu>
+        </div>
+        , focusableContainer);
+
+      const hideMenuCount = instance.querySelectorAll('.test-menu.hide').length;
+
+      expect(hideMenuCount).to.equals(0);
+    });
+
+
     describe('Keyboard Navigation', () => {
       it('sets focus on next menu item when the key "down" is pressed', () => {
         const instance = ReactDOM.render(simpleMenu, focusableContainer);

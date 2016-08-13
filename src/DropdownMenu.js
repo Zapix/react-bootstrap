@@ -108,7 +108,7 @@ class DropdownMenu extends React.Component {
       <ul
         {...elementProps}
         role="menu"
-        className={classNames(className, classes)}
+        className={classNames(className, classes, !open && 'hide')}
         aria-labelledby={labelledBy}
       >
         {ValidComponentChildren.map(children, child => (
